@@ -76,7 +76,8 @@ fun MainBottomBar(
     subtitleOverride: String? = null,
     subtitleIp: String? = null,
     isConnecting: Boolean = false,
-    showSmartConnect: Boolean = true
+    showSmartConnect: Boolean = true,
+    showConnectButton: Boolean = true
 ) {
     val palette = LocalGlassPalette.current
     val dotColor = when {
@@ -237,11 +238,13 @@ fun MainBottomBar(
                     Spacer(Modifier.width(8.dp))
                 }
 
-                NeonConnectButton(
-                    isRunning = isRunning,
-                    isConnecting = isConnecting,
-                    onClick = { onAction(MainAction.ToggleService) },
-                )
+                if (showConnectButton) {
+                    NeonConnectButton(
+                        isRunning = isRunning,
+                        isConnecting = isConnecting,
+                        onClick = { onAction(MainAction.ToggleService) },
+                    )
+                }
             }
         }
     }
