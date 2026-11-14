@@ -207,24 +207,15 @@ fun MainTopBar(
 
 @Composable
 private fun Wordmark(accent: Color, ink: Color) {
-    // The brand reads the same in every language, so this Row stays LTR.
+    // LIGH7NING wordmark: a consistent brand mark independent of app language.
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                "Aras",
-                fontSize = 19.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = (-0.4).sp,
-                color = ink
-            )
-            Text(
-                "Client",
-                fontSize = 19.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = (-0.4).sp,
-                color = accent
-            )
-        }
+        Text(
+            text = "LIGH7NING",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.ExtraBold,
+            letterSpacing = 2.2.sp,
+            color = Color(0xFFFFC95B)
+        )
     }
 }
 
