@@ -164,7 +164,14 @@ internal fun LightningStormBanner(
                     )
                 }
                 drawCircle(
-                    color = Color(0xFF5CA8F2).copy(alpha = 0.24f * glow),
+                    brush = Brush.radialGradient(
+                        listOf(
+                            Color(0xFF5CA8F2).copy(alpha = 0.24f * glow),
+                            Color.Transparent
+                        ),
+                        center = center,
+                        radius = radius * 1.12f
+                    ),
                     radius = radius * 1.12f,
                     center = center,
                     style = Stroke(width = 1.1.dp.toPx())
