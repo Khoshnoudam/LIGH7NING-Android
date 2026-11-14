@@ -164,9 +164,9 @@ internal fun LightningStormBanner(
                     )
                 }
                 drawCircle(
-                    Color(0xFF5CA8F2).copy(alpha = 0.24f * glow),
-                    center,
-                    radius * 1.12f,
+                    color = Color(0xFF5CA8F2).copy(alpha = 0.24f * glow),
+                    radius = radius * 1.12f,
+                    center = center,
                     style = Stroke(width = 1.1.dp.toPx())
                 )
                 val bolt = Path().apply {
