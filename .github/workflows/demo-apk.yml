@@ -22,6 +22,10 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # Do not install the obsolete `tools` SDK package: it was removed
+          # from Google's current SDK repositories and makes sdkmanager fail.
+          packages: platform-tools platforms;android-37
 
       - name: Build debug APK
         run: |
