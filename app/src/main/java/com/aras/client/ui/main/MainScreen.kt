@@ -263,6 +263,12 @@ fun MainScreen(
                             onDismiss = { mainViewModel.dismissUpdateAnnouncement() }
                         )
                     }
+                    LightningStormBanner(
+                        isRunning = isRunning,
+                        isConnecting = isConnecting,
+                        serverName = connectingServerName.ifBlank { mainViewModel.connectedServerTitle() },
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
+                    )
                     if (groups.size > 1) {
                         GroupTabBar(
                             groups = groups,
