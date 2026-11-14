@@ -11,6 +11,11 @@ import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.ui.graphics.Color
+import com.aras.client.ui.compose.DarkGlassPalette
+import com.aras.client.ui.compose.LocalGlassPalette
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -42,6 +47,27 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(
+    mainViewModel: MainViewModel,
+    onAction: (MainAction) -> Unit,
+    onNavigate: (MainDestination) -> Unit,
+) {
+    val brandColors = darkColorScheme(
+        primary = Color(0xFFFFC95B), onPrimary = Color(0xFF081326),
+        secondary = Color(0xFF4D9BEB), onSecondary = Color(0xFF061225),
+        background = Color(0xFF050B18), onBackground = Color(0xFFEAF2FF),
+        surface = Color(0xFF0B172B), onSurface = Color(0xFFEAF2FF),
+        surfaceVariant = Color(0xFF14243A), onSurfaceVariant = Color(0xFFB6C7DD),
+        outline = Color(0xFF536780), error = Color(0xFFFF8A80)
+    )
+    CompositionLocalProvider(LocalGlassPalette provides DarkGlassPalette) {
+        MaterialTheme(colorScheme = brandColors) {
+            MainScreenContent(mainViewModel, onAction, onNavigate)
+        }
+    }
+}
+
+@Composable
+private fun MainScreenContent(
     mainViewModel: MainViewModel,
     onAction: (MainAction) -> Unit,
     onNavigate: (MainDestination) -> Unit,
@@ -187,6 +213,7 @@ fun MainScreen(
 
     Scaffold(
             contentWindowInsets = ScaffoldDefaults.contentWindowInsets,
+            containerColor = Color(0xFF050B18),
             topBar = {
                 MainTopBar(
                     isLoading = isLoading,
@@ -239,7 +266,8 @@ fun MainScreen(
                         subtitleIp = if (isConnecting) null else barText.subtitleIp,
                         isRunning = isRunning,
                         isConnecting = isConnecting,
-                        showSmartConnect = uiState.showSmartConnect,
+                        showSmartConnect = false,
+                        showConnectButton = false,
                         onAction = onAction
                     )
                 }
@@ -267,6 +295,7 @@ fun MainScreen(
                         isRunning = isRunning,
                         isConnecting = isConnecting,
                         serverName = connectingServerName.ifBlank { mainViewModel.connectedServerTitle() },
+                        onToggle = { onAction(MainAction.ToggleService) },
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
                     )
                     if (groups.size > 1) {
